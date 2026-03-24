@@ -1,0 +1,242 @@
+/* ----- ROOT CONFIG  ----- */
+
+:root {
+    /* 1. SURFACE (Main Background) */
+    --bg-main: #F2F4F9;          /* Gray lavender pale: clean and modern */
+    --bg-surface-soft: #D3FCD5;  /* Mint Green: For label or quote backgrounds */
+
+    /* 2. TIPOGRAPHY (Reading) */
+    --text-body: #2D2A32;        /* Almost black: Maximum readability for the blog */
+    --text-muted: #98A6D4;       /* Lavender blue: For dates, author or metadata */
+
+    /* 3. STRUCTURE (Titles and Navigation) */
+    --nav-title: #44344F;        /* Dark purple: Main titles (H1, H2) */
+    --nav-subtitle: #564D80;     /* Middle purple: Subtitles or active states */
+
+    /* 4. ACTION (Buttons and Links) */
+    --action-primary: #C2F970;   /* Lima Green: For buttons (CTA) and accents only */
+    --action-hover: #44344F;     /* So that the button changes to dark when hovering */
+}
+
+/* ----- GLOBAL STYLES ----- */
+
+* {
+    box-sizing: border-box;
+}
+
+/* ----- BODY STYLES ----- */
+
+body {
+    background-color: var(--bg-main);
+    margin: 0;
+    padding: 0;
+}
+
+/* ---- HEADER STYLES ----- */
+
+.header {
+    min-height: 100dvh;
+    background-image: url(/img/header-bg-book.jpg);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-container {
+    margin-left: clamp(10px, 15%, 100px);
+}
+
+.logo-container__logo {
+    font-family: Montserrat;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--bg-main);
+}
+
+.logo-container__logo > h1 {
+    font-size: inherit;
+}
+
+.nav {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+}
+
+.form-menu #form-menu__checkbox {
+    display: none;
+}
+
+.form-menu .form-menu__menu  .menu, .form-menu .form-menu__menu .close {
+    font-size: 2rem;
+    color: var(--bg-main);
+    user-select: none;
+}
+
+.form-menu .form-menu__menu .close {
+    display: none;
+}
+
+.nav.nav:has(#form-menu__checkbox:checked) .form-menu .form-menu__menu  .close {
+    display: inline-block;
+}
+
+.nav.nav:has(#form-menu__checkbox:checked) .form-menu .form-menu__menu  .menu {
+    display: none;
+}
+
+.nav__menu-container {
+    font-family: Montserrat;
+    background-color: var(--bg-main);
+    color: #222;
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    list-style: none;
+    left: 0;
+    margin: 0;
+    width: 100%;
+    height: 0;
+    top: 100%;
+    opacity: 0;
+    transition-behavior: allow-discrete;
+    transition: display .5s allow-discrete, opacity .5s, height .5s;
+}
+
+.li__link-menu {
+    display: flex;
+    column-gap: 30px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav:has(#form-menu__checkbox:checked) .nav__menu-container {
+    display: flex;
+    height: calc(100dvh - 100%);
+    opacity: 1;
+}
+
+.arrow-right {
+    vertical-align: middle;
+    line-height: 1;
+    position: relative;
+    user-select: none;
+}
+
+@starting-style {
+    .nav.nav:has(#form-menu__checkbox:checked) .nav__menu-container {
+        height: 0;
+        opacity: 0;
+    }
+}
+
+.header-hero {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    flex-grow: 1;
+    width: clamp(280px, 90%, 600px);
+    color: var(--bg-main);
+}
+
+.header-hero h2 {
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: clamp(20px, 1.5rem, 24px);
+    text-wrap: balance;
+    margin: 0;
+}
+
+.header-hero p {
+    font-family: Montserrat;
+    text-wrap: pretty;
+    font-size: clamp(16px, 1.2rem, 20px);
+}
+
+@supports (background-image: url(img/header-bg-book.avif)) {
+    .header {
+        background-image: url(img/header-bg-book.avif);
+    }
+}
+
+/* ----- HEADER QUERIES ----- */
+
+@media screen and (min-width: 720px) {
+    .form-menu .form-menu__menu .menu {
+        display: none;
+    }
+
+    .logo-container__logo {
+        white-space: nowrap;
+    }
+
+    .nav__menu-container {
+        display: flex;
+        position: static;
+        flex-direction: row;
+        justify-content: end;
+        column-gap: 20px;
+        background-color: transparent;
+        color: var(--bg-main);
+        height: auto;
+        opacity: 1;
+        transition: none;
+    }
+
+    .li__link-menu {
+        column-gap: 10px;
+        position: relative;
+    }
+
+    .li__link-menu::before {
+        content: "";
+        position: absolute;
+        width: 10%;
+        height: 2px;
+        opacity: 0;
+        bottom: -5px;
+        left: 0;
+        background-color: var(--bg-surface-soft);
+        transition: opacity .4s, width .4s;
+    }
+
+    .li__link-menu:hover::before {
+        opacity: 1;
+        width: 80%;
+    }
+
+    .header-hero {
+        width: clamp(500px, 80%, 900px);
+    }
+
+    .header-hero h2 {
+        font-size: clamp(26px, 4vw, 36px); 
+    }
+
+    .header-hero p {
+        font-size: clamp(18px, 2vw, 22px);
+    }
+}
+
+/* ----- COLOR PALETTE ----- 
+
+1. F2F4F9 
+2. 2D2A32 
+3. 44344F
+4. 98A6D4 D3FCD5
+5. C2F970
+6. 564D80
+
+*/
